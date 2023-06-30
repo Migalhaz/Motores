@@ -9,8 +9,14 @@ public class PlayerInputManager : MonoBehaviour
     Vector2 m_lookDirection;
     public Vector2 m_MoveDirection => m_moveDirection;
     public Vector2 m_LookDirection => m_lookDirection;
+    [Header("Jump Inputs")]
     [SerializeField] KeyCode m_jumpKey;
     [SerializeField] UnityEvent OnJumpKeyPressed;
+
+    [Header("Dash Inputs")]
+    [SerializeField] KeyCode m_dashKey;
+    [SerializeField] UnityEvent OnDashKeyPressed;
+
 
     private void Awake()
     {
@@ -25,6 +31,11 @@ public class PlayerInputManager : MonoBehaviour
         if (Input.GetKeyDown(m_jumpKey))
         {
             OnJumpKeyPressed?.Invoke();
+        }
+
+        if (Input.GetKeyDown(m_dashKey))
+        {
+            OnDashKeyPressed?.Invoke();
         }
     }
 }
