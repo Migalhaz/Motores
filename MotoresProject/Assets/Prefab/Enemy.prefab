@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6207503400126818830}
   - component: {fileID: 6207503400126818831}
   - component: {fileID: 6207503400126818828}
+  - component: {fileID: 1641097780055574157}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6207503400126818816}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.82, y: -3.33, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.28773582, b: 0.28773582, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -267,6 +268,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemySpeed: 2
+  m_collider:
+    triggerTag: New Trigger
+    triggerLayerMask:
+      serializedVersion: 2
+      m_Bits: 128
+    centerObject: {fileID: 0}
+    triggerEvents:
+      OnTriggerEnter:
+        m_PersistentCalls:
+          m_Calls: []
+      OnTriggerStayInside:
+        m_PersistentCalls:
+          m_Calls: []
+      OnTriggerStayOutside:
+        m_PersistentCalls:
+          m_Calls: []
+      OnTriggerExit:
+        m_PersistentCalls:
+          m_Calls: []
+    drawSettings:
+      draw: 1
+      drawMethod: 0
+      drawSolid: 0
+      inColor: {r: 0, g: 1, b: 0, a: 1}
+      outColor: {r: 1, g: 0, b: 0, a: 1}
+    triggerOffset: {x: 0, y: 0}
+    triggerSize: {x: 1, y: 1}
 --- !u!50 &6207503400126818831
 Rigidbody2D:
   serializedVersion: 4
@@ -314,3 +342,57 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1641097780055574157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6207503400126818816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ae07088afc01c4c9195427f43731e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hpRange:
+    m_minValue: 0
+    m_maxValue: 3
+  m_OnHPChange:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1641097780055574157}
+        m_TargetAssemblyTypeName: EnemyLifeSystem, Assembly-CSharp
+        m_MethodName: DamageEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_OnHPGotMax:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDie:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1641097780055574157}
+        m_TargetAssemblyTypeName: EnemyLifeSystem, Assembly-CSharp
+        m_MethodName: DeathEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_particleSystem: {fileID: 1524912448129647169, guid: 979179a398223684aadba61bf9f5f3c2, type: 3}
+  m_spriteRenderer: {fileID: 6207503400126818819}
+  m_damageEffectTimer: 0.25

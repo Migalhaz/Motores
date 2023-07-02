@@ -34,14 +34,10 @@ public class Bullet : MonoBehaviour
 
     void ColliderCheck()
     {
-
-        GameObject obj = m_collider.InTrigger<GameObject>(transform.position);
+        IDieble obj = m_collider.InTrigger<IDieble>(transform.position);
         if (obj is not null)
         {
-            if (obj.TryGetComponent(out IDieble i))
-            {
-                i.Damage(m_bulletDamage);
-            }
+            obj.Damage(m_bulletDamage);
         }
     }
 

@@ -14,8 +14,6 @@ public class PlayerAttack : MonoBehaviour
             transform.position.x + m_firePointPosition.x * m_playerInputManager.m_LookDirection.x, 
             transform.position.y + m_firePointPosition.y, 
             transform.position.z + m_firePointPosition.z);
-
-        Debug.Log(m_playerInputManager.m_LookDirection);
     }
     public void Attack()
     {
@@ -25,6 +23,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(m_currentFirePointPosition, .1f);
+        Vector3 drawPosition = m_currentFirePointPosition;
+        drawPosition.x = drawPosition.x == 0 ? transform.position.x + m_firePointPosition.x : drawPosition.x;
+        Gizmos.DrawWireSphere(drawPosition, .1f);
     }
 }
