@@ -17,6 +17,9 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] KeyCode m_dashKey;
     [SerializeField] UnityEvent OnDashKeyPressed;
 
+    [Header("Attack Inputs")]
+    [SerializeField] KeyCode m_attackKey;
+    [SerializeField] UnityEvent OnAttackKeyPressed;
 
     private void Awake()
     {
@@ -36,6 +39,11 @@ public class PlayerInputManager : MonoBehaviour
         if (Input.GetKeyDown(m_dashKey))
         {
             OnDashKeyPressed?.Invoke();
+        }
+
+        if (Input.GetKeyDown(m_attackKey))
+        {
+            OnAttackKeyPressed?.Invoke();
         }
     }
 }

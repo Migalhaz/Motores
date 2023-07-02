@@ -7,6 +7,7 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] PlayerInputManager m_playerInputManager;
     [SerializeField] Rigidbody2D m_rig;
+    [SerializeField] PhysicsController m_physicsController;
 
     [Header("Move Settings")]
     [SerializeField, Min(0)] float m_moveSpeed;
@@ -17,24 +18,23 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Min(0)] float m_jumpForce;
 
     [Header("Dash Settings")]
+    bool dashing;
     [SerializeField, Min(0)] float m_dashForce;
+    [SerializeField, Min(0)] float m_dashCooldown;
+    float m_currentDashCooldown;
     [SerializeField, Min(0)] float m_dashTimer;
-    float m_currentDashTimer;
 
     private void Awake()
     {
         m_rig ??= GetComponent<Rigidbody2D>();
-        ResetJumps();
+        SetJumps(0);
         SetDashTimer(0);
-    }
-    void Start()
-    {
-        
+        dashing = false;
     }
 
     private void Update()
     {
-        m_currentDashTimer -= Time.deltaTime;
+        m_currentDashCooldown -= Time.deltaTime;
     }
     void FixedUpdate()
     {
@@ -43,34 +43,49 @@ public class PlayerMove : MonoBehaviour
 
     void Move()
     {
-        //m_rig.velocity = new Vector2((m_moveSpeed * m_playerInputManager.m_MoveDirection.x), m_rig.velocity.y);
-        m_rig.AddForce(m_moveSpeed * m_playerInputManager.m_MoveDirection);
+        if (dashing) return;
+        m_rig.velocity = new Vector2(m_moveSpeed * m_playerInputManager.m_MoveDirection.x, m_rig.velocity.y);
     }
 
     public void Jump()
     {
+        if (dashing) return;
         if (m_currentJumps <= 0) return;
+        DecreaseJump();
+        m_rig.velocity = Vector2.up * m_jumpForce;
+    }
 
+    public void DecreaseJump()
+    {
         m_currentJumps--;
-        m_rig.velocity = new Vector2(m_rig.velocity.x, m_jumpForce);
     }
 
     public void Dash()
     {
-        if (m_currentDashTimer > 0) return; 
-        //m_rig.velocity = new Vector2(m_dashForce, m_rig.velocity.y);
-        m_rig.AddForce(m_playerInputManager.m_LookDirection * m_dashForce, ForceMode2D.Impulse);
+        if (dashing) return;
+        if (m_currentDashCooldown > 0) return;
+        m_physicsController.SetGravity(0);
+        dashing = true;
+        StartCoroutine(Dashing());
         ResetDashTimer();
+    }
+
+    IEnumerator Dashing()
+    {
+        m_rig.velocity = m_playerInputManager.m_LookDirection * m_dashForce;
+        yield return new WaitForSeconds(m_dashTimer);
+        dashing = false;
+        m_physicsController.SetGravity(m_physicsController.m_defaultGravityValue);
     }
 
     public void ResetDashTimer()
     {
-        SetDashTimer(m_dashTimer);
+        SetDashTimer(m_dashCooldown);
     }
 
     void SetDashTimer(float dashTimer)
     {
-        m_currentDashTimer = dashTimer;
+        m_currentDashCooldown = dashTimer;
     }
 
     public void ResetJumps()
@@ -81,5 +96,10 @@ public class PlayerMove : MonoBehaviour
     void SetJumps(int jumpCounts)
     {
         m_currentJumps = jumpCounts;
+    }
+
+    public void IncreaseMaxJump()
+    {
+        m_maxJumps++;
     }
 }
