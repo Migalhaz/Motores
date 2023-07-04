@@ -7,10 +7,10 @@ public class BasicLifeSystem : MonoBehaviour, IDieble
 {
     [SerializeField] Range m_hpRange;
     protected float m_currentHp;
-    [SerializeField] UnityEvent m_OnHPChange;
-    [SerializeField] UnityEvent m_OnTakeDamage;
-    [SerializeField] UnityEvent m_OnHPGotMax;
-    [SerializeField] UnityEvent m_OnDie;
+    [SerializeField] protected UnityEvent m_OnHPChange;
+    [SerializeField] protected UnityEvent m_OnTakeDamage;
+    [SerializeField] protected UnityEvent m_OnHPGotMax;
+    [SerializeField] protected UnityEvent m_OnDie;
     protected virtual void Awake()
     {
         m_currentHp = m_hpRange.m_MaxValue;
@@ -18,13 +18,14 @@ public class BasicLifeSystem : MonoBehaviour, IDieble
 
     public virtual void Damage(float damage)
     {
-        m_OnHPChange?.Invoke();
-        m_OnTakeDamage?.Invoke();
+        
         m_currentHp -= damage;
         if (m_currentHp <= m_hpRange.m_MinValue)
         {
             Death();
         }
+        m_OnHPChange?.Invoke();
+        m_OnTakeDamage?.Invoke();
     }
 
     public virtual void Death()

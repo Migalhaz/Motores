@@ -13,12 +13,13 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Min(0)] float m_moveSpeed;
 
     [Header("Jump Settings")]
+    bool m_jumping;
     [SerializeField, Min(0)] int m_maxJumps;
     int m_currentJumps;
     [SerializeField, Min(0)] float m_jumpForce;
 
     [Header("Dash Settings")]
-    bool dashing;
+    bool m_dashing;
     [SerializeField, Min(0)] float m_dashForce;
     [SerializeField, Min(0)] float m_dashCooldown;
     float m_currentDashCooldown;
@@ -28,8 +29,23 @@ public class PlayerMove : MonoBehaviour
     {
         m_rig ??= GetComponent<Rigidbody2D>();
         SetJumps(0);
-        SetDashTimer(0);
-        dashing = false;
+        SetDashTimer(1f);
+        m_dashing = false;
+    }
+
+    public bool IsDashing()
+    {
+        return m_dashing;
+    }
+
+    public bool IsJumping()
+    {
+        return m_jumping;
+    }
+
+    public bool IsMoving()
+    {
+        return m_playerInputManager.m_MoveDirection.x != 0;
     }
 
     private void Update()
@@ -43,13 +59,13 @@ public class PlayerMove : MonoBehaviour
 
     void Move()
     {
-        if (dashing) return;
+        if (m_dashing) return;
         m_rig.velocity = new Vector2(m_moveSpeed * m_playerInputManager.m_MoveDirection.x, m_rig.velocity.y);
     }
 
     public void Jump()
     {
-        if (dashing) return;
+        if (m_dashing) return;
         if (m_currentJumps <= 0) return;
         DecreaseJump();
         m_rig.velocity = Vector2.up * m_jumpForce;
@@ -60,12 +76,17 @@ public class PlayerMove : MonoBehaviour
         m_currentJumps--;
     }
 
+    public void SetJumping(bool jumping)
+    {
+        m_jumping = jumping;
+    }
+
     public void Dash()
     {
-        if (dashing) return;
+        if (m_dashing) return;
         if (m_currentDashCooldown > 0) return;
         m_physicsController.SetGravity(0);
-        dashing = true;
+        m_dashing = true;
         StartCoroutine(Dashing());
         ResetDashTimer();
     }
@@ -74,7 +95,7 @@ public class PlayerMove : MonoBehaviour
     {
         m_rig.velocity = m_playerInputManager.m_LookDirection * m_dashForce;
         yield return new WaitForSeconds(m_dashTimer);
-        dashing = false;
+        m_dashing = false;
         m_physicsController.SetGravity(m_physicsController.m_defaultGravityValue);
     }
 

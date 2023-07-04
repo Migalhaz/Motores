@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
+    [SerializeField] bool m_dontDestroyOnLoad = true;
     private static T instance;
-
     public static T Instance
     {
         get
@@ -19,10 +19,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     GameObject singletonObject = new GameObject(typeof(T).Name);
                     instance = singletonObject.AddComponent<T>();
                 }
-
-                DontDestroyOnLoad(instance.gameObject);
             }
-
             return instance;
         }
     }
@@ -32,6 +29,10 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
+        }
+        if (m_dontDestroyOnLoad)
+        {
+            DontDestroyOnLoad(gameObject);
         }
     }
 }
