@@ -1,13 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [SerializeField] Range m_ammoRange;
+    float m_currentAmmo;
+    [SerializeField, Min(0)] float m_timeToReload;
     [SerializeField] GameObject m_bullet;
     [SerializeField] PlayerInputManager m_playerInputManager;
     [SerializeField] Vector3 m_firePointPosition;
     Vector3 m_currentFirePointPosition;
+
+    private void Start()
+    {
+        m_currentAmmo = m_ammoRange.m_MaxValue;
+    }
+
     private void Update()
     {
         m_currentFirePointPosition.Set(
@@ -17,8 +27,18 @@ public class PlayerAttack : MonoBehaviour
     }
     public void Attack()
     {
+        if (m_currentAmmo <= m_ammoRange.m_MinValue) return;
+        
+        m_currentAmmo--;
         Bullet bullet = Instantiate(m_bullet, m_currentFirePointPosition, Quaternion.identity).GetComponent<Bullet>();
         bullet.Setup(m_playerInputManager.m_LookDirection);
+        StartCoroutine(Reload());
+    }
+
+    IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(m_timeToReload);
+        m_currentAmmo += m_currentAmmo >= m_ammoRange.m_MaxValue ? 0 : 1;
     }
 
     private void OnDrawGizmos()

@@ -100788,6 +100788,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad55d951b810fc644a9893b016b0d095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ammoRange:
+    m_minValue: 0
+    m_maxValue: 5
+  m_timeToReload: 1
   m_bullet: {fileID: 8844600311016286254, guid: d5ac05fdc6522e6498a9eaa2a15243a9, type: 3}
   m_playerInputManager: {fileID: 920896207}
   m_firePointPosition: {x: 0.55, y: 0, z: 0}
