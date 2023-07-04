@@ -235,7 +235,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56821971}
-  m_LocalRotation: {x: -1e-45, y: 1e-45, z: 0, w: 1}
+  m_LocalRotation: {x: 3e-45, y: 1e-45, z: 0, w: 1}
   m_LocalPosition: {x: -4.97, y: 13.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -100791,7 +100791,7 @@ MonoBehaviour:
   m_ammoRange:
     m_minValue: 0
     m_maxValue: 5
-  m_timeToReload: 1
+  m_timeToReload: 3
   m_bullet: {fileID: 8844600311016286254, guid: d5ac05fdc6522e6498a9eaa2a15243a9, type: 3}
   m_playerInputManager: {fileID: 920896207}
   m_firePointPosition: {x: 0.55, y: 0, z: 0}
