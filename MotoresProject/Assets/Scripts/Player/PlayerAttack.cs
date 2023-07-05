@@ -24,6 +24,8 @@ public class PlayerAttack : MonoBehaviour
             transform.position.x + m_firePointPosition.x * m_playerInputManager.m_LookDirection.x, 
             transform.position.y + m_firePointPosition.y, 
             transform.position.z + m_firePointPosition.z);
+
+        UIManager.Instance.m_AmmoUIManager.UpdateAmmoText(m_currentAmmo, m_ammoRange.m_MaxValue);
     }
     public void Attack()
     {
