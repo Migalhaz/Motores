@@ -12,6 +12,14 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] PlayerInputManager m_playerInputManager;
     [SerializeField] Vector3 m_firePointPosition;
     Vector3 m_currentFirePointPosition;
+    PlayerVisualController m_playerVisualController;
+    PlayerMove m_playerMove;
+
+    private void Awake()
+    {
+        m_playerMove = GetComponent<PlayerMove>();
+        m_playerVisualController = GetComponent<PlayerVisualController>();
+    }
 
     private void Start()
     {
@@ -29,8 +37,9 @@ public class PlayerAttack : MonoBehaviour
     }
     public void Attack()
     {
+        if (m_playerMove.IsDashing()) return;
         if (m_currentAmmo <= m_ammoRange.m_MinValue) return;
-        
+        m_playerVisualController.SetAttackTrigger();
         m_currentAmmo--;
         Bullet bullet = Instantiate(m_bullet, m_currentFirePointPosition, Quaternion.identity).GetComponent<Bullet>();
         bullet.Setup(m_playerInputManager.m_LookDirection);
@@ -39,6 +48,8 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator Reload()
     {
+        yield return null;
+        m_playerVisualController.ResetAttackTrigger();
         yield return new WaitForSeconds(m_timeToReload);
         m_currentAmmo += m_currentAmmo >= m_ammoRange.m_MaxValue ? 0 : 1;
     }

@@ -26,6 +26,7 @@ public class PlayerLifeSystem : BasicLifeSystem, IHeal
     void HitBoxCheck()
     {
         AbstractEnemy enemy = m_hitbox.InTrigger<AbstractEnemy>(transform.position, true, false);
+        //AbstractEnemy enemy = m_hitbox.InTrigger<AbstractEnemy>(transform.position);
         if (enemy is not null)
         {
             Damage(enemy.m_EnemyDamage);

@@ -34,4 +34,14 @@ public class PlayerVisualController : MonoBehaviour
             m_spriteRenderer.flipX = false;
         }
     }
+
+    public void SetAttackTrigger()
+    {
+        m_anim.SetTrigger("Attack");
+    }
+
+    public void ResetAttackTrigger()
+    {
+        m_anim.ResetTrigger("Attack");
+    }
 }

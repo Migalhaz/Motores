@@ -5,11 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
 public class BasicEnemy : AbstractEnemy
 {
+    [SerializeField] SpriteRenderer m_spriteRenderer;
     [SerializeField, Min(0)] float m_enemySpeed;
     float m_direction;
     private void Start()
     {
         m_direction = Random.value > .5f ? 1f : -1f;
+        m_spriteRenderer.flipX = m_direction < 0;
     }
     private void Update()
     {
@@ -23,11 +25,13 @@ public class BasicEnemy : AbstractEnemy
 
     public void FlipLeft()
     {
+        m_spriteRenderer.flipX = true;
         m_direction = -1f;
     }
 
     public void FlipRight()
     {
+        m_spriteRenderer.flipX = false;
         m_direction = 1f;
     }
 }
