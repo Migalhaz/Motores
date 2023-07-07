@@ -7,7 +7,7 @@ public class DeathUIManager : MonoBehaviour
 {
     [SerializeField] GameObject m_gameOverUIPanel;
     [SerializeField] GameObject m_gameUI;
-    [SerializeField, Min(0)] private float m_timeToGameOverScreen =1f;
+    [SerializeField, Min(0)] private float m_timeToGameOverScreen = 1f;
 
     private void Awake()
     {
@@ -27,7 +27,9 @@ public class DeathUIManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        m_gameOverUIPanel.SetActive(false);
+        m_gameUI.SetActive(true);
+        GameManager.Instance.SetupScene();
     }
 
     public void Menu()

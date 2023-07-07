@@ -23,7 +23,13 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
+        Setup();
+    }
+
+    public void Setup()
+    {
         m_currentAmmo = m_ammoRange.m_MaxValue;
+
     }
 
     private void Update()

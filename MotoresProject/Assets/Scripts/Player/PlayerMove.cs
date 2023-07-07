@@ -28,9 +28,19 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         m_rig ??= GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        Setup();
+    }
+
+    public void Setup()
+    {
         SetJumps(0);
         SetDashTimer(1f);
         m_dashing = false;
+        m_physicsController.SetGravity(m_physicsController.m_defaultGravityValue);
     }
 
     public bool IsDashing()

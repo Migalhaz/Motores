@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class BasicLifeSystem : MonoBehaviour, IDieble
 {
-    [SerializeField] Range m_hpRange;
+    [SerializeField] protected Range m_hpRange;
     protected float m_currentHp;
     [SerializeField] protected UnityEvent m_OnHPChange;
     [SerializeField] protected UnityEvent m_OnTakeDamage;

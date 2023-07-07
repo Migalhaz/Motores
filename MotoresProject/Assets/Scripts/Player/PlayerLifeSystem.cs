@@ -14,8 +14,7 @@ public class PlayerLifeSystem : BasicLifeSystem, IHeal
     protected override void Awake()
     {
         base.Awake();
-        m_OnHPChange?.Invoke();
-        m_canTakeDamage = true;
+        Setup();
     }
 
     private void Update()
@@ -23,10 +22,16 @@ public class PlayerLifeSystem : BasicLifeSystem, IHeal
         HitBoxCheck();
     }
 
+    public void Setup()
+    {
+        m_currentHp = m_hpRange.m_MaxValue;
+        m_OnHPChange?.Invoke();
+        m_canTakeDamage = true;
+    }
+
     void HitBoxCheck()
     {
         AbstractEnemy enemy = m_hitbox.InTrigger<AbstractEnemy>(transform.position, true, false);
-        //AbstractEnemy enemy = m_hitbox.InTrigger<AbstractEnemy>(transform.position);
         if (enemy is not null)
         {
             Damage(enemy.m_EnemyDamage);
@@ -43,15 +48,18 @@ public class PlayerLifeSystem : BasicLifeSystem, IHeal
     public override void Damage(float damage)
     {
         if (!m_canTakeDamage) return;
+        StartCoroutine(DamageEffect());
         base.Damage(damage);
         m_canTakeDamage = false;
-        StartCoroutine(DamageEffect());
     }
 
     public void DeathEffect()
     {
-        Destroy(gameObject);
+        
         Instantiate(m_deathParticles, transform.position, Quaternion.identity);
+        StopAllCoroutines();
+        m_spriteRenderer.color = Color.white;
+        gameObject.SetActive(false);
     }
 
     IEnumerator DamageEffect()

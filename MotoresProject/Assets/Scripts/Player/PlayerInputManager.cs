@@ -23,6 +23,11 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Awake()
     {
+        Setup();
+    }
+
+    public void Setup()
+    {
         m_lookDirection = Vector2.right;
     }
 

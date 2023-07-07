@@ -10,6 +10,7 @@ public class BasicEnemy : AbstractEnemy
     float m_direction;
     private void Start()
     {
+        transform.parent = null;
         m_direction = Random.value > .5f ? 1f : -1f;
         m_spriteRenderer.flipX = m_direction < 0;
     }

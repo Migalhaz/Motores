@@ -15,4 +15,17 @@ public class PlayerManager : Singleton<PlayerManager>
     public PlayerMove m_PlayerMove => m_playerMove;
     public PlayerAttack m_PlayerAttack => m_playerAttack;
     public PlayerVisualController m_PlayerVisualController => m_playerVisualController;
+
+    public void SetActive(bool setActive)
+    {
+        gameObject.SetActive(setActive);
+    }
+
+    public void Setup()
+    {
+        m_PlayerMove.Setup();
+        m_playerLifeSystem.Setup();
+        m_playerAttack.Setup();
+        m_playerInputManager.Setup();
+    }
 }
