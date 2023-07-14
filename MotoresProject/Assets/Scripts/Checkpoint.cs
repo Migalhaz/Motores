@@ -14,7 +14,12 @@ public class Checkpoint : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, m_playerManager.transform.position) < 2f)
         {
-            GameManager.Instance.SetCheckpoint(transform);
+            OnTouchFlag();
         }
+    }
+
+    public virtual void OnTouchFlag()
+    {
+        GameManager.Instance.SetCheckpoint(transform);
     }
 }

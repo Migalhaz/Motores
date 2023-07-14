@@ -21,6 +21,10 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] KeyCode m_attackKey;
     [SerializeField] UnityEvent OnAttackKeyPressed;
 
+    [Header("Pause Input")]
+    [SerializeField] KeyCode m_pauseKey = KeyCode.Escape;
+    [SerializeField] UnityEvent OnPauseKeyPressed;
+
     private void Awake()
     {
         Setup();
@@ -49,6 +53,11 @@ public class PlayerInputManager : MonoBehaviour
         if (Input.GetKeyDown(m_attackKey))
         {
             OnAttackKeyPressed?.Invoke();
+        }
+
+        if (Input.GetKeyDown(m_pauseKey))
+        {
+            OnPauseKeyPressed?.Invoke();
         }
     }
 }

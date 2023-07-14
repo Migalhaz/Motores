@@ -78,6 +78,7 @@ public class PlayerMove : MonoBehaviour
         if (m_dashing) return;
         if (m_currentJumps <= 0) return;
         DecreaseJump();
+        PlayerManager.Instance.m_PlayerSFXManager.JumpSfx();
         m_rig.velocity = Vector2.up * m_jumpForce;
     }
 

@@ -9,6 +9,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] List<EnemiesSpawn> m_enemiesSpawns;
     List<GameObject> m_currentEnemies;
 
+    [Header("SFX")]
+    [SerializeField] AudioSource m_explosion;
+    [SerializeField] AudioSource m_powerUp;
+    [SerializeField] AudioSource m_button;
     private void Start()
     {
         m_currentEnemies = new();
@@ -35,6 +39,21 @@ public class GameManager : Singleton<GameManager>
     public void SetCheckpoint(Transform newSpawnpoint)
     {
         m_spawnPoint = newSpawnpoint;
+    }
+
+    public void ExplosionSFX()
+    {
+        m_explosion?.Play();
+    }
+
+    public void PowerUpSFX()
+    {
+        m_powerUp?.Play();
+    }
+
+    public void ButtonSFX()
+    {
+        m_button?.Play();
     }
 }
 

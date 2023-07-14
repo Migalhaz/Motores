@@ -45,6 +45,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (m_playerMove.IsDashing()) return;
         if (m_currentAmmo <= m_ammoRange.m_MinValue) return;
+        PlayerManager.Instance.m_PlayerSFXManager.ShootSFX();
         m_playerVisualController.SetAttackTrigger();
         m_currentAmmo--;
         Bullet bullet = Instantiate(m_bullet, m_currentFirePointPosition, Quaternion.identity).GetComponent<Bullet>();

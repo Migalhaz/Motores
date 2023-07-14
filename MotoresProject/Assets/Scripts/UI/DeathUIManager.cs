@@ -27,6 +27,7 @@ public class DeathUIManager : MonoBehaviour
 
     public void Restart()
     {
+        GameManager.Instance.ButtonSFX();
         m_gameOverUIPanel.SetActive(false);
         m_gameUI.SetActive(true);
         GameManager.Instance.SetupScene();
@@ -34,11 +35,13 @@ public class DeathUIManager : MonoBehaviour
 
     public void Menu()
     {
-        Debug.LogWarning("Função 'Menu' não implementada! Script DeathUIManager");
+        GameManager.Instance.ButtonSFX();
+        SceneManager.LoadScene("Menu");
     }
 
     public void Quit()
     {
+        GameManager.Instance.ButtonSFX();
         Application.Quit();
     }
 }

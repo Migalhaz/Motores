@@ -28,6 +28,7 @@ public class EnemyLifeSystem : BasicLifeSystem
     public override void Death()
     {
         base.Death();
+        GameManager.Instance.ExplosionSFX();
         Destroy(gameObject);
     }
 }
