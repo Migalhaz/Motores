@@ -13,6 +13,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] AudioSource m_explosion;
     [SerializeField] AudioSource m_powerUp;
     [SerializeField] AudioSource m_button;
+
+    public Transform m_SpawnPoint => m_spawnPoint;
     private void Start()
     {
         m_currentEnemies = new();

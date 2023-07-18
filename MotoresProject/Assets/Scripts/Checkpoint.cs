@@ -5,9 +5,11 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     PlayerManager m_playerManager;
+    GameManager m_gameManager;
     private void Start()
     {
         m_playerManager = PlayerManager.Instance;
+        m_gameManager = GameManager.Instance;
     }
 
     void Update()
@@ -20,6 +22,11 @@ public class Checkpoint : MonoBehaviour
 
     public virtual void OnTouchFlag()
     {
-        GameManager.Instance.SetCheckpoint(transform);
+        m_gameManager ??= GameManager.Instance;
+        if (m_gameManager.m_SpawnPoint != transform)
+        {
+            m_gameManager.PowerUpSFX();
+            m_gameManager.SetCheckpoint(transform);
+        }
     }
 }
