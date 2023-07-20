@@ -56,6 +56,7 @@ public class PlayerLifeSystem : BasicLifeSystem, IHeal
     public void DeathEffect()
     {
         GameManager.Instance.ExplosionSFX();
+        UIManager.Instance.m_GameOverUIManager.RestartButton(false);
         Instantiate(m_deathParticles, transform.position, Quaternion.identity);
         StopAllCoroutines();
         m_spriteRenderer.color = Color.white;

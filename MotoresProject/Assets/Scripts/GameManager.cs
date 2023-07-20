@@ -8,12 +8,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] Transform m_spawnPoint;
     [SerializeField] List<EnemiesSpawn> m_enemiesSpawns;
     List<GameObject> m_currentEnemies;
+    [SerializeField] FinalFlag m_finalFlag;
 
     [Header("SFX")]
     [SerializeField] AudioSource m_explosion;
     [SerializeField] AudioSource m_powerUp;
     [SerializeField] AudioSource m_button;
-
     public Transform m_SpawnPoint => m_spawnPoint;
     private void Start()
     {
@@ -24,6 +24,9 @@ public class GameManager : Singleton<GameManager>
 
     public void SetupScene()
     {
+
+        Time.timeScale = 1f;
+        m_finalFlag.SetTouch(false);
         m_playerManager.SetActive(true);
         m_playerManager.gameObject.transform.position = m_spawnPoint.position;
         m_currentEnemies.ForEach(x => Destroy(x));

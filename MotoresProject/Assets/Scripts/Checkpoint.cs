@@ -6,6 +6,7 @@ public class Checkpoint : MonoBehaviour
 {
     PlayerManager m_playerManager;
     GameManager m_gameManager;
+    [SerializeField] float m_flagTouchDistance = 2f;
     private void Start()
     {
         m_playerManager = PlayerManager.Instance;
@@ -14,7 +15,7 @@ public class Checkpoint : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, m_playerManager.transform.position) < 2f)
+        if (Vector3.Distance(transform.position, m_playerManager.transform.position) < m_flagTouchDistance)
         {
             OnTouchFlag();
         }
