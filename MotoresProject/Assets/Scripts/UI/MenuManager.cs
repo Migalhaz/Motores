@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : Singleton<MenuManager>
 {
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
     public void Play()
     {
         SceneManager.LoadScene("Cena1");

@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class PauseUIManager : MonoBehaviour
 {
-    bool paused;
+    public bool m_Paused { get; private set; }
     private void Awake()
     {
-        paused = false;
+        m_Paused = false;
         gameObject.SetActive(false);
         Time.timeScale = 1;
     }
 
     public void PauseInput()
     {
-        if (paused)
+        if (m_Paused)
         {
             Unpause();
         }
@@ -27,7 +27,7 @@ public class PauseUIManager : MonoBehaviour
     public void Pause()
     {
         GameManager.Instance.ButtonSFX();
-        paused = true;
+        m_Paused = true;
         gameObject.SetActive(true);
         Time.timeScale = 0;
     }
@@ -35,7 +35,7 @@ public class PauseUIManager : MonoBehaviour
     public void Unpause()
     {
         GameManager.Instance.ButtonSFX();
-        paused = false;
+        m_Paused = false;
         gameObject.SetActive(false);
         Time.timeScale = 1;
     }

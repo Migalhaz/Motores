@@ -37,6 +37,7 @@ public class PlayerInputManager : MonoBehaviour
 
     public void Update()
     {
+        if (UIManager.Instance.m_PauseUIManager.m_Paused) return;
         if (UIManager.Instance.m_GameOverUIManager.m_GameOver) return;
         m_moveDirection.Set(Input.GetAxisRaw("Horizontal"), 0f);
         m_lookDirection = m_moveDirection.x != 0 ? m_moveDirection : m_lookDirection;
