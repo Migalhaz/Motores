@@ -8,7 +8,6 @@ public class PlayerLifeSystem : BasicLifeSystem, IHeal
     [SerializeField] SpriteRenderer m_spriteRenderer;
     bool m_canTakeDamage;
     [SerializeField, Min(0)] float m_invulnerableSeconds;
-    [SerializeField, Min(0)] int m_potions = 1;
     [SerializeField] GameObject m_deathParticles;
     public float m_CurrentHp => m_currentHp;
     protected override void Awake()
@@ -40,9 +39,12 @@ public class PlayerLifeSystem : BasicLifeSystem, IHeal
 
     public void Heal()
     {
-        if (m_potions <= 0) return;
-        m_potions--;
         m_currentHp++;
+        if (m_currentHp >= m_hpRange.m_MaxValue)
+        {
+            m_currentHp = m_hpRange.m_MaxValue;
+        }
+        m_OnHPChange?.Invoke();
     }
 
     public override void Damage(float damage)

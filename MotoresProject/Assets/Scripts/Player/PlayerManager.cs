@@ -10,6 +10,7 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] PlayerAttack m_playerAttack;
     [SerializeField] PlayerVisualController m_playerVisualController;
     [SerializeField] PlayerSFXManager m_playerSFXManager;
+    [SerializeField] PlayerCoinSystem m_playerCoinSystem;
 
     public PlayerLifeSystem m_PlayerLifeSystem => m_playerLifeSystem;
     public PlayerInputManager m_PlayerInputManager => m_playerInputManager;
@@ -17,6 +18,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public PlayerAttack m_PlayerAttack => m_playerAttack;
     public PlayerVisualController m_PlayerVisualController => m_playerVisualController;
     public PlayerSFXManager m_PlayerSFXManager => m_playerSFXManager;
+    public PlayerCoinSystem m_PlayerCoinSystem => m_playerCoinSystem;
 
 
     public void SetActive(bool setActive)
