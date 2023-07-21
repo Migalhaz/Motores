@@ -8,6 +8,7 @@ public class PlayerSFXManager : MonoBehaviour
     [SerializeField] AudioSource m_jumpAudioSource;
     [SerializeField] AudioSource m_fireAudioSource;
     [SerializeField] AudioSource m_footstepsAudioSources;
+    [SerializeField] AudioSource m_damageAudioSources;
 
     private void Start()
     {
@@ -43,5 +44,10 @@ public class PlayerSFXManager : MonoBehaviour
     public void ShootSFX()
     {
         m_fireAudioSource?.Play();
+    }
+
+    public void DamageSfx()
+    {
+        m_damageAudioSources?.Play();
     }
 }
