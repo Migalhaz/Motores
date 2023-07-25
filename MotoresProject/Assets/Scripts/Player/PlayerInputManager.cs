@@ -37,8 +37,12 @@ public class PlayerInputManager : MonoBehaviour
 
     public void Update()
     {
-        if (UIManager.Instance.m_PauseUIManager.m_Paused) return;
         if (UIManager.Instance.m_GameOverUIManager.m_GameOver) return;
+        if (Input.GetKeyDown(m_pauseKey))
+        {
+            OnPauseKeyPressed?.Invoke();
+        }
+        if (UIManager.Instance.m_PauseUIManager.m_Paused) return;
         m_moveDirection.Set(Input.GetAxisRaw("Horizontal"), 0f);
         m_lookDirection = m_moveDirection.x != 0 ? m_moveDirection : m_lookDirection;
 
@@ -55,11 +59,6 @@ public class PlayerInputManager : MonoBehaviour
         if (Input.GetKeyDown(m_attackKey))
         {
             OnAttackKeyPressed?.Invoke();
-        }
-
-        if (Input.GetKeyDown(m_pauseKey))
-        {
-            OnPauseKeyPressed?.Invoke();
         }
     }
 }

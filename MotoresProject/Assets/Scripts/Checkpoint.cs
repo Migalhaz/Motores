@@ -30,4 +30,9 @@ public class Checkpoint : MonoBehaviour
             m_gameManager.SetCheckpoint(transform);
         }
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, m_flagTouchDistance);
+    }
 }

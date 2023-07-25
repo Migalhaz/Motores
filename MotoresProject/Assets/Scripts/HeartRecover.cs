@@ -26,6 +26,7 @@ public class HeartRecover : MonoBehaviour
         }
     }
 
+    [ContextMenu("Heal Player")]
     public void PickedHeart()
     {
         GameManager.Instance.PowerUpSFX();

@@ -23,11 +23,11 @@ public class BasicLifeSystem : MonoBehaviour, IDieble
         if (m_currentHp <= m_hpRange.m_MinValue)
         {
             Death();
+            return;
         }
         m_OnHPChange?.Invoke();
         m_OnTakeDamage?.Invoke();
     }
-
     public virtual void Death()
     {
         m_OnDie?.Invoke();
